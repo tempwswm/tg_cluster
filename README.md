@@ -51,7 +51,8 @@ EOF
 ## k3s 控制平面安装（这个集群没有设置高可用）
 
 ```shell
-curl -sfL https://get.k3s.io | K3S_TOKEN=$SERVER_TOKEN sh -s - --embedded-registry
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=$SERVER_TOKEN $K3S_NODE_NAME= sh -s - --embedded-registry --node-external-ip=$(curl ifconfig.me) --flannel-backend=wireguard-native --flannel-external-ip
 ```
 
 
@@ -59,7 +60,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=$SERVER_TOKEN sh -s - --embedded-regist
 ## k3s 工作节点安装
 
 ```shell
-curl -sfL https://get.k3s.io | K3S_URL=https://$MASTER_IP K3S_TOKEN=$SERVER_TOKEN sh -s - agent \
+curl -sfL https://get.k3s.io | K3S_URL=https://$MASTER_IP:6443 K3S_TOKEN=$SERVER_TOKEN sh -s - agent --node-external-ip=$(curl ifconfig.me) \
   --node-label area=$NODE_AREA \
   --node-label stable=$NODE_STABLE
 ```
