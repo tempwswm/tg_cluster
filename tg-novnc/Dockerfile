@@ -15,7 +15,7 @@ StartupNotify=false' > /opt/Desktop/64gram.desktop \
 
 RUN apk add wget unzip \
   && wget -q https://github.com/TDesktop-x64/tdesktop/releases/download/v1.1.77/64Gram_1.1.77_linux.zip \
-  && unzip 64Gram_1.1.77_linux.zip -d /opt/tg
+  && unzip 64Gram_1.1.77_linux.zip -d /opt/tg 
 
 FROM accetto/debian-vnc-xfce-g3
-COPY --from=builder /opt /home/headless
+COPY --from=builder --chmod=777  /opt /home/headless
