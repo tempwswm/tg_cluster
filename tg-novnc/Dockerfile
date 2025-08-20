@@ -1,4 +1,4 @@
-FROM alpine AS builder
+.ioFROM alpine AS builder
 
 RUN mkdir -p /opt/Desktop \
   && echo -e '[Desktop Entry]\n\
@@ -17,5 +17,5 @@ RUN apk add wget unzip \
   && wget -q https://github.com/TDesktop-x64/tdesktop/releases/download/v1.1.77/64Gram_1.1.77_linux.zip \
   && unzip 64Gram_1.1.77_linux.zip -d /opt/tg 
 
-FROM accetto/debian-vnc-xfce-g3
+FROM docker.io/accetto/debian-vnc-xfce-g3
 COPY --from=builder --chmod=777  /opt /home/headless
