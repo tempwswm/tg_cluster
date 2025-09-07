@@ -1,8 +1,11 @@
 FROM alpine AS builder
 
+ARG TG_VERSION
+
 RUN apk add wget unzip \
-  && wget -q https://github.com/TDesktop-x64/tdesktop/releases/download/v1.1.77/64Gram_1.1.77_linux.zip \
-  && unzip 64Gram_1.1.77_linux.zip -d /opt/tg 
+  && echo "https://github.com/TDesktop-x64/tdesktop/releases/download/v${TG_VERSION}/64Gram_${TG_VERSION}_linux.zip" \
+  && wget -q "https://github.com/TDesktop-x64/tdesktop/releases/download/v${TG_VERSION}/64Gram_${TG_VERSION}_linux.zip" \
+  && unzip "64Gram_${TG_VERSION}_linux.zip" -d /opt/tg
   
 
 FROM docker.io/accetto/debian-vnc-xfce-g3
